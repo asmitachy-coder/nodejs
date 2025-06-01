@@ -1,7 +1,8 @@
 // database connection ko code lekhne
  
- const { Sequelize } = require('sequelize');
+ const { Sequelize,DataTypes } = require('sequelize');
  require("dotenv").config() // importing dotenv to use environment variables
+ 
 
  const sequelize = new Sequelize({
     
@@ -22,4 +23,13 @@
     .catch((err) => {
         console.log("Error aayo", err);
     });
-    module.exports = sequelize;
+
+    const db ={}
+
+    db.blogs =require("./../models/blogModel")(sequelize, DataTypes) // importing blog model and passing sequelize and DataTypes
+    // db.users=require("./../models/userModel")(sequelize, DataTypes) // importing user model and passing sequelize and DataTypes
+    db.products = require("./../models/productModel")(sequelize, DataTypes) // importing product model and passing sequelize and DataTypes
+    sequelize.sync({alter: true}) .then(() => {
+        console.log("migrated successfully");
+    })
+    module.exports = sequelize
