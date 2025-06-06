@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+
+    
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Variables */
+        :root {
+            --primary-color: #0088cc;
+            --secondary-color: #00aaff;
+            --accent-color: #ff6600;
+            --dark-color: #333333;
+            --light-color: #f5f5f5;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+        }
+
+        /* Global Styles */
+        body {
+            background-color: #f9f9f9;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #e65c00;
+        }
+
+        /* Delivery Calculator */
+        .calculator {
+            background-color: white;
+            padding: 3rem 0;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .calculator-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-group input {
+            width: auto;
+            margin-right: 0.5rem;
+        }
+
+        .result {
+            background-color: var(--light-color);
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin-top: 1.5rem;
+            text-align: center;
+            display: none;
+        }
+
+        .result.show {
+            display: block;
+        }
+
+        .price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 0.5rem 0;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 3rem 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .service-content {
+            padding: 1.5rem;
+        }
+
+        .service-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 3rem;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-col h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #444;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">Rwanda<span>Express</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Track</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Fast & Reliable Delivery Across Rwanda</h1>
+            <p>We deliver to all 30 districts of Rwanda with same-day service in Kigali and next-day delivery to major cities.</p>
+            <a href="#calculator" class="btn">Calculate Delivery Cost</a>
+        </div>
+    </section>
+
+    <section id="calculator" class="calculator">
+        <div class="container">
+            <h2 class="section-title">Delivery Cost Calculator</h2>
+            <form class="calculator-form" id="deliveryForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fromProvince">From Province</label>
+                        <select id="fromProvince" required>
+                            <option value="">Select Province</option>
+                            <option value="Kigali">Kigali City</option>
+                            <option value="Northern">Northern Province</option>
+                            <option value="Southern">Southern Province</option>
+                            <option value="Eastern">Eastern Province</option>
+                            <option value="Western">Western Province</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="fromDistrict">From District</label>
+                        <select id="fromDistrict" required>
+                            <option value="">Select District</option>
+                            <!-- Districts will be populated by JavaScript -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="toProvince">To Province</label>
+                        <select id="toProvince" required>
+                            <option value="">Select Province</option>
+                            <option value="Kigali">Kigali City</option>
+                            <option value="Northern">Northern Province</option>
+                            <option value="Southern">Southern Province</option>
+                            <option value="Eastern">Eastern Province</option>
+                            <option value="Western">Western Province</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="toDistrict">To District</label>
+                        <select id="toDistrict" required>
+                            <option value="">Select District</option>
+                            <!-- Districts will be populated by JavaScript -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="weight">Package Weight (kg)</label>
+                    <input type="number" id="weight" min="0.1" step="0.1" value="1" required>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="urgent">
+                    <label for="urgent">Urgent Delivery (50% extra)</label>
+                </div>
+
+                <button type="submit" class="btn">Calculate Cost</button>
+
+                <div class="result" id="result">
+                    <h3>Estimated Delivery Cost</h3>
+                    <div class="price" id="price">0 RWF</div>
+                    <p id="deliveryTime">Estimated delivery time: </p>
+                    <p id="deliveryPartner">Delivery partner: </p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section class="services">
+        <div class="container">
+            <h2 class="section-title">Our Delivery Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Standard Delivery">
+                    </div>
+                    <div class="service-content">
+                        <h3>Standard Delivery</h3>
+                        <p>Reliable delivery within 1-3 business days across Rwanda. Perfect for non-urgent shipments.</p>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Express Delivery">
+                    </div>
+                    <div class="service-content">
+                        <h3>Express Delivery</h3>
+                        <p>Same-day delivery in Kigali, next-day to major cities. 50% faster than standard service.</p>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="International Delivery">
+                    </div>
+                    <div class="service-content">
+                        <h3>International Delivery</h3>
+                        <p>Ship to and from Rwanda with our global partners. Customs clearance included.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>RwandaExpress</h3>
+                    <p>Fast, reliable delivery services across all 30 districts of Rwanda since 2015.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Track Package</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Service Areas</h3>
+                    <ul>
+                        <li><a href="#">Kigali City</a></li>
+                        <li><a href="#">Northern Province</a></li>
+                        <li><a href="#">Southern Province</a></li>
+                        <li><a href="#">Eastern Province</a></li>
+                        <li><a href="#">Western Province</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>KK 15 Ave, Kigali</li>
+                        <li>+250 788 123 456</li>
+                        <li>info@rwandaexpress.rw</li>
+                        <li>Open 24/7</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 RwandaExpress. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Districts data for Rwanda
+        const districtsByProvince = {
+            'Kigali': ['Gasabo', 'Kicukiro', 'Nyarugenge'],
+            'Northern': ['Burera', 'Gakenke', 'Gicumbi', 'Musanze', 'Rulindo'],
+            'Southern': ['Gisagara', 'Huye', 'Kamonyi', 'Muhanga', 'Nyamagabe', 'Nyanza', 'Nyaruguru', 'Ruhango'],
+            'Eastern': ['Bugesera', 'Gatsibo', 'Kayonza', 'Kirehe', 'Ngoma', 'Nyagatare', 'Rwamagana'],
+            'Western': ['Karongi', 'Ngororero', 'Nyabihu', 'Nyamasheke', 'Rubavu', 'Rutsiro', 'Rusizi']
+        };
+
+        // Delivery partners
+        const deliveryPartners = {
+            'Kigali': ['Safari Logistics', 'Rwanda Express', 'Gorilla Delivery'],
+            'other': ['Rwanda Logistics', 'East Africa Delivery', 'Jumia Services']
+        };
+
+        // Pricing
+        const pricing = {
+            'Kigali': 1500,  // RWF
+            'same_province': 2500,
+            'different_province': 4000,
+            'urgent': 1.5  // 50% surcharge
+        };
+
+        // DOM elements
+        const fromProvinceSelect = document.getElementById('fromProvince');
+        const fromDistrictSelect = document.getElementById('fromDistrict');
+        const toProvinceSelect = document.getElementById('toProvince');
+        const toDistrictSelect = document.getElementById('toDistrict');
+        const weightInput = document.getElementById('weight');
+        const urgentCheckbox = document.getElementById('urgent');
+        const deliveryForm = document.getElementById('deliveryForm');
+        const resultDiv = document.getElementById('result');
+        const priceSpan = document.getElementById('price');
+        const deliveryTimeSpan = document.getElementById('deliveryTime');
+        const deliveryPartnerSpan = document.getElementById('deliveryPartner');
+
+        // Populate districts when province changes
+        function populateDistricts(provinceSelect, districtSelect) {
+            const province = provinceSelect.value;
+            districtSelect.innerHTML = '<option value="">Select District</option>';
+            
+            if (province) {
+                districtsByProvince[province].forEach(district => {
+                    const option = document.createElement('option');
+                    option.value = district;
+                    option.textContent = district;
+                    districtSelect.appendChild(option);
+                });
+            }
+        }
+
+        // Event listeners for province changes
+        fromProvinceSelect.addEventListener('change', () => populateDistricts(fromProvinceSelect, fromDistrictSelect));
+        toProvinceSelect.addEventListener('change', () => populateDistricts(toProvinceSelect, toDistrictSelect));
+
+        // Form submission
+        deliveryForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const fromProvince = fromProvinceSelect.value;
+            const fromDistrict = fromDistrictSelect.value;
+            const toProvince = toProvinceSelect.value;
+            const toDistrict = toDistrictSelect.value;
+            const weight = parseFloat(weightInput.value) || 1;
+            const isUrgent = urgentCheckbox.checked;
+            
+            if (!fromProvince || !fromDistrict || !toProvince || !toDistrict) {
+                alert('Please select both origin and destination locations');
+                return;
+            }
+            
+            // Calculate cost
+            let cost;
+            if (fromProvince === 'Kigali' && toProvince === 'Kigali') {
+                cost = pricing['Kigali'];
+            } else if (fromProvince === toProvince) {
+                cost = pricing['same_province'];
+            } else {
+                cost = pricing['different_province'];
+            }
+            
+            // Apply weight multiplier (simplified)
+            if (weight > 5) cost *= 1.5;
+            if (weight > 10) cost *= 2;
+            
+            // Urgent delivery
+            if (isUrgent) {
+                cost *= pricing['urgent'];
+            }
+            
+            // Calculate delivery time
+            let time;
+            if (fromProvince === 'Kigali' && toProvince === 'Kigali') {
+                time = '2-4 hours';
+            } else if (fromProvince === toProvince) {
+                time = '1 day';
+            } else {
+                time = '2-3 days';
+            }
+            
+            if (isUrgent) {
+                time = '50% faster than standard (' + time + ')';
+            }
+            
+            // Determine delivery partner
+            let partner;
+            if (fromProvince === 'Kigali' || toProvince === 'Kigali') {
+                partner = deliveryPartners['Kigali'][Math.floor(Math.random() * deliveryPartners['Kigali'].length)];
+            } else {
+                partner = deliveryPartners['other'][Math.floor(Math.random() * deliveryPartners['other'].length)];
+            }
+            
+            // Display results
+            priceSpan.textContent = Math.round(cost).toLocaleString() + ' RWF';
+            deliveryTimeSpan.textContent = 'Estimated delivery time: ' + time;
+            deliveryPartnerSpan.textContent = 'Delivery partner: ' + partner;
+            
+            resultDiv.classList.add('show');
+        });
+    </script>
+
+    
+</body>
+</html>

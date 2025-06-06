@@ -27,9 +27,10 @@
     const db ={}
 
     db.blogs =require("./../models/blogModel")(sequelize, DataTypes) // importing blog model and passing sequelize and DataTypes
-    // db.users=require("./../models/userModel")(sequelize, DataTypes) // importing user model and passing sequelize and DataTypes
+     db.users=require("./../models/userModel")(sequelize, DataTypes) // importing user model and passing sequelize and DataTypes
     db.products = require("./../models/productModel")(sequelize, DataTypes) // importing product model and passing sequelize and DataTypes
     sequelize.sync({alter: true}) .then(() => {
         console.log("migrated successfully");
     })
     module.exports = sequelize
+    module.exports = db // exporting db object which contains all the models
