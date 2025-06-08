@@ -5,9 +5,10 @@ const db=require("./database/db") // importing database connection file
 //const app =require("express")()
 app.set("view engine","ejs")// tells express js to set environment for ejs
 app.use (express.urlencoded({extended:true})) // to parse the form data
+const bcrypt = require("bcrypt") // importing bcrypt for hashing passwords
 // get todo - page
 app.get("/",(req,res) => {
-res.render("todo/get-todo.ejs") // renders index.ejs file from views folder
+res.render("home.ejs") // renders index.ejs file from views folder
 
 
 })
@@ -15,6 +16,9 @@ res.render("todo/get-todo.ejs") // renders index.ejs file from views folder
 app.get("/add-todo",(req,res) => {
 res.render("todo/add-todo")
 
+})
+app.get("/get-todo",(req,res)=>{
+    res.render("todo/get-todo") // renders get-todo.ejs file from views folder
 })
 // update todo page
 app.get("/update-todo",(req,res) => {
@@ -35,6 +39,10 @@ app.get("/Register",(req,res) => {
 }) 
 app.post ('/register',async (req,res) =>{
     const {username,email,password,confirm_password} = req.body
+    if (password !== confirm_password) {
+       res.send("Password and confirm password do not match")
+}  
+    // Create new user
 //     const {username,email,password,confirm_password} = req.body
 //     if (password !== confirm_password) {
 //         res.send("Password and conform password do not match")
@@ -44,11 +52,28 @@ app.post ('/register',async (req,res) =>{
 //         email,
 //         password 
 //     })
+   await db.users.create({
+        username: username,
+        email: email,
+        password: bcrypt.hashSync(password, 10)
+    })
+     
+    
  res.send("User registered successfully")
     
 
 //console.log(req.body)
 })
+app.post("/add-todo",async (req,res) => {
+    const {task,description,date} = req.body
+    await db.adds.create({
+        task: task,
+        description: description,
+        date: date
+    })
+res.render("home.ejs")
+}
+)
     
 
 

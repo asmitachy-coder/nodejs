@@ -1,75 +1,57 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Todo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
 
-<link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <div class="bg-white p-6 rounded shadow-md w-full max-w-md">
+    <h2 class="text-2xl font-semibold text-gray-700 mb-4">Add Todo</h2>
+    <form id="todoForm" method="post" action="/add-todo" class="flex flex-col space-y-4">
+      
+      <!-- Title -->
+      <input
+        type="text"
+        name="task"
+        id="todoTitle"
+        placeholder="Title"
+        class="px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        required
+      />
 
-<div class="w-full h-full  bg-gray-100 dark:bg-gray-900">
-    <div class="xl:w-[20%] lg:w-[30%] md:w-[40%] sm:w-[50%] xs:w-[90%] mx-auto h-full flex items-center">
-        <div class="w-full rounded-lg flex flex-col gap-2 py-2 border bg-white dark:border-gray-500 dark:bg-gray-800">
-            <div class="flex items-center justify-between p-4 dark:text-white">
-                <h4>Add to your feed</h4>
-                <span class="material-symbols-outlined">info</span>
-            </div>
+      <!-- Description -->
+      <textarea
+        id="todoDescription"
+        name="description"
+        placeholder="Description"
+        class="px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        rows="3"
+        required
+      ></textarea>
 
-            <div class="w-full flex gap-2 px-2">
-                <img src="https://images.unsplash.com/photo-1730627667879-447d38cb03b3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw1fHxldGhpb3BpYW4lMjBhaXJsaW5lc3xlbnwwfDB8fHwxNzMyMjU3NzY5fDA&ixlib=rb-4.0.3&q=80&w=1080" alt="User profile" class="w-[3.4rem] h-[3.4rem] rounded-full" />
-                <div class="flex flex-col">
-                    <h4 class="text-md text-gray-800 font-semibold dark:text-gray-200">Ethiopian Airlines</h4>
-                    <h6 class="text-sm text-gray-600 dark:text-gray-400">Airlines and Aviation</h6>
-                    <!-- follow Button -->
-                    <div class="w-fit px-3 flex justify-center items-center border border-black my-2 rounded-full dark:border-gray-200 dark:text-white">
-                        <span class="material-symbols-outlined">add</span>
-                        <h5 class="">Follow</h5>
-                    </div>
-                </div>
-            </div>
+      <!-- Due Date -->
+      <input
+        type="date"
+        name="date"
+        id="todoDate"
+        class="px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        required
+      />
 
-            <div class="w-full flex gap-2 px-2">
-                <img src="https://images.unsplash.com/photo-1533636721434-0e2d61030955?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw1fHxibGFjayUyMHByb2ZpbGUlMjBpbWFnZXxlbnwwfDB8fHwxNzEzNTMwNjg5fDA&ixlib=rb-4.0.3&q=80&w=1080" alt="User profile" class="w-[3.4rem] h-[3.4rem] rounded-full" />
-                <div class="flex flex-col">
-                    <h4 class="text-md text-gray-800 font-semibold dark:text-gray-200">Eyasu Abera</h4>
-                    <h6 class="text-sm text-gray-600 dark:text-gray-400">System Administrator</h6>
-                    <!-- follow Button -->
-                    <div class="w-fit px-3 flex justify-center items-center border border-black my-2 rounded-full dark:border-gray-200 dark:text-white">
-                        <i class="fa fa-lock" aria-hidden="true"></i>
-                        <h5 class="pl-1">Message</h5>
-                    </div>
-                </div>
-            </div>
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+      >
+        Add Todo
+      </button>
+    </form>
+  </div>
 
-            <div class="w-full flex gap-2 px-2">
-                <img src="https://images.unsplash.com/photo-1678483790053-71367bc7a02c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw5fHxnb29nbGUlMjBsb2dvfGVufDB8MHx8fDE3MzIyNTc3MTF8MA&ixlib=rb-4.0.3&q=80&w=1080" alt="User profile" class="w-[3.4rem] h-[3.4rem] rounded-full" />
-                <div class="flex flex-col">
-                    <h4 class="text-md text-gray-800 font-semibold dark:text-gray-200">Google</h4>
-                    <h6 class="text-sm text-gray-600 dark:text-gray-400">Software Development</h6>
-                    <!-- follow Button -->
-                    <div class="w-fit px-3 flex justify-center items-center border border-black my-2 rounded-full dark:border-gray-200 dark:text-white">
-                        <span class="material-symbols-outlined">add</span>
-                        <h5 class="">Follow</h5>
-                    </div>
-                </div>
-            </div>
 
-            <div class="w-full flex gap-1 px-4 pb-2 ">
-                <h6 class="text-md text-gray-600 dark:text-gray-400">View all recommendations</h6>
-                <span class="material-symbols-outlined dark:text-gray-300">arrow_right_alt</span>
-            </div>
-        </div>
-    </div>    
-</div>
+
 </body>
 </html>
