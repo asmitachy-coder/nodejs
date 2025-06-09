@@ -7,7 +7,8 @@ app.set("view engine","ejs")// tells express js to set environment for ejs
 app.use (express.urlencoded({extended:true})) // to parse the form data
 const bcrypt = require("bcrypt") // importing bcrypt for hashing passwords
 // get todo - page
-app.get("/",(req,res) => {
+app.get("/", async(req,res) => {
+ 
 res.render("home.ejs") // renders index.ejs file from views folder
 
 
@@ -17,8 +18,9 @@ app.get("/add-todo",(req,res) => {
 res.render("todo/add-todo")
 
 })
-app.get("/get-todo",(req,res)=>{
-    res.render("todo/get-todo") // renders get-todo.ejs file from views folder
+app.get("/get-todo",async(req,res)=>{
+    const datas= await db.adds.findAll()
+    res.render("todo/get-todo",{ todos: datas }) // renders get-todo.ejs file from views folder
 })
 // update todo page
 app.get("/update-todo",(req,res) => {
