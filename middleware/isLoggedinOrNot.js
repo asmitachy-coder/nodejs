@@ -1,11 +1,15 @@
+const { request } = require("express")
 const jwt = require("jsonwebtoken")
 
 const isLoggedInOrNot = (req, res, next) => {
-    //console.log("isLoggedInOrNot function trigger vayoooo...");
     //receeive token
     const token = req.cookies.token
+    console.log(token);
+    console.log("isLoggedInOrNot function trigger vayoooo...");
+
+
     //verify token
-    if (token) {
+    if (!token) {
         res.send("please log in")
 
     }else{
@@ -14,11 +18,11 @@ const isLoggedInOrNot = (req, res, next) => {
             if (error){
                 res.send("invalid token")
             }else{
-                res.send("valid token,verifaction")
+                req.usersId =result.id
+                console.log(result)
+              next()
 
-    }
-    
-        
+    }    
     })
 }
 

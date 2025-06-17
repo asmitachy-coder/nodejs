@@ -14,12 +14,11 @@ app.use(cookieParser()) // using cookie-parser middleware
 
 
 // get todo - page
-app.get("/",isLoggedInOrNot, async(req,res) => {
- 
+app.get("/", async(req,res) => {
+
 res.render("home.ejs") // renders index.ejs file from views folder
-
-
 })
+
 // add todo - page
 app.get("/add-todo",isLoggedInOrNot,(req,res) => {
 res.render("todo/add-todo")
@@ -80,7 +79,6 @@ app.post("/login",async (req,res) => {
         where: {
             email: email
         }
-    
     })
     
     if(users.length ==0){
@@ -89,9 +87,8 @@ app.post("/login",async (req,res) => {
     }else{
         const ispasswordmatch = bcrypt.compareSync(password, users[0].password)
         if(ispasswordmatch){
-
-            const token = jwt.sign({ name: "asmita"}, "this ismy secret key",{
-                expiresIn: "1"
+            const token = jwt.sign({ id : users[0].id}, "thisismysecretkey",{
+                expiresIn: "1d"
             })
             res.cookie("token", token)
 
