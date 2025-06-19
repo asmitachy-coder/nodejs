@@ -10,17 +10,24 @@ const bcrypt = require("bcrypt") // importing bcrypt for hashing passwords
 const jwt = require("jsonwebtoken") // importing jsonwebtoken for authentication
 const isLoggedInOrNot = require("./middleware/isloggedinOrNot")
 const cookieParser = require("cookie-parser") // importing cookie-parser for handling cookies
+const { where } = require("sequelize")
 app.use(cookieParser()) // using cookie-parser middleware
 
 
 // get todo - page
-app.get("/", async(req,res) => {
+app.get("/",isLoggedInOrNot, async(req,res) => {
+    const usersId = req.usersId // getting user id from request
+    const datas = await db.adds.findAll({
+        where: {
+            userId: usersId // filtering todos by user id
+        }
+    })
 
 res.render("home.ejs") // renders index.ejs file from views folder
 })
 
 // add todo - page
-app.get("/add-todo",isLoggedInOrNot,(req,res) => {
+app.get("/add-todo",(req,res) => {
 res.render("todo/add-todo")
 
 })
@@ -65,6 +72,7 @@ app.post ('/register',async (req,res) =>{
         email: email,
         password: bcrypt.hashSync(password, 10)
     })
+
      
     
  res.send("User registered successfully")
@@ -102,21 +110,54 @@ app.post("/login",async (req,res) => {
     }
 })
 
-
-app.post("/add-todo",async (req,res) => {
+app.post("/add-todo", isLoggedInOrNot, async (req,res) => {
+    const usersId = req.usersId // getting user id from request
     const {task,description,date} = req.body
     await db.adds.create({
         task: task,
         description: description,
-        date: date
+        date: date,
+        userId: usersId
     })
 res.render("home.ejs")
 }
 )
+
+  app.get("/edit/:id", async (req,res) => {
+    const id =req.params.id // getting id from request parameters
+    const todos = await db.adds.findAll({
+        where:{
+            id: id
+        }
+        
+    })
+
+    // res.send(todos)
+
+
+    res.render('todo/edit.ejs',{todos:todos})
+ 
+  }) 
+  
+  
+  app.post("/edit/:id", async (req,res) => {
+    const id = req.params.id // getting id from request parameters
+    const {task,description,date} = req.body
+    await db.adds.update({
+        task: task,
+        description: description,
+        date: date,
+        status: status
+
+    },{
+        where: {
+            id: id
+        }
+    })
+    res.redirect() // redirecting to get-todo page after updating
+  })
+
     
-
-
-
 
 app.listen(3000, function (){
     console.log("Backend has started at port 3000")

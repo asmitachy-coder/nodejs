@@ -18,7 +18,7 @@
                       <%= todo.completed ? 'border-green-500' : 'border-yellow-400' %>">
             <div class="flex items-center justify-between mb-2">
               <h2 class="text-xl font-semibold text-gray-900"><%= todo.task %></h2>
-              <% if (todo.completed) { %>
+              <% if (todos.completed) { %>
                 <span class="inline-flex items-center text-green-600 font-medium text-sm">
                   ✅ Done
                 </span>
@@ -28,8 +28,10 @@
                 </span>
               <% } %>
             </div>
-            <p class="text-gray-600 text-sm mb-2"><%= todo.description || 'No description provided.' %></p>
-            <p class="text-xs text-gray-500">📅 <%= todo.date || 'No date' %></p>
+            <a href="=/delete/<%-todo.id%>"><button>Delete me</button></a>
+            <a href="/edit/<%- todo.id%>"><button>Edit me</button></a>
+            <p class="text-gray-600 text-sm mb-2"><%= todos.description || 'No description provided.' %></p>
+            <p class="text-xs text-gray-500">📅 <%= todos.date || 'No date' %></p>
           </div>
         <% }); %>
       </div>

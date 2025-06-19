@@ -30,6 +30,12 @@
      db.users=require("./../models/userModel")(sequelize, DataTypes) // importing user model and passing sequelize and DataTypes
     db.products = require("./../models/productModel")(sequelize, DataTypes) // importing product model and passing sequelize and DataTypes
     db.adds= require("./../models/addModel")(sequelize, DataTypes) // importing add model and passing sequelize and DataTypes
+
+
+    //yesto relation xa vanerw
+    db.users.hasMany(db.adds)
+
+    db.adds.belongsTo(db.users)
     
     sequelize.sync({alter: true}) .then(() => {
         console.log("migrated successfully");
